@@ -1,0 +1,10 @@
+
+# Playwright
+node_modules/
+.env
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+/allure-results/
