@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import QaCartSignUpPage from "./QacartSignUpPage";
+import QaCartSignUpPage from "./qaCartSignUpPage";
 import TodoPage from "./todoPage";
 import CreateTodoPage from "./createTodoPage";
 
