@@ -21,14 +21,14 @@ test.describe('E2E Tests', () => {
         expect(cartContent).toEqual('1')
 
         await pm.sauceDemoPage().clickCart();
-        expect(page.waitForURL(await pm.sauceDemoPage().getCartPath()))
+        expect(await page.waitForURL(await pm.sauceDemoPage().getCartPath())).toBeTruthy();
         expect(await pm.sauceDemoPage().verifyCartItem(product)).toBeTruthy();
 
         await pm.sauceDemoPage().clickCheckoutBtn();
         expect(await page.waitForURL(await pm.sauceDemoPage().getCheckoutPath()))
 
         await pm.sauceDemoPage().fillCheckoutForm('John','Doe','54321');
-        expect(await page.waitForURL(await pm.sauceDemoPage().getCheckoutOverviewPath()));
+        expect(await page.waitForURL(await pm.sauceDemoPage().getCheckoutOverviewPath())).toBeTruthy();
         expect(await pm.sauceDemoPage().verifyCartItem(product)).toBeTruthy();
 
         await pm.sauceDemoPage().finishCheckOut();
