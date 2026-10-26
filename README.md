@@ -38,6 +38,49 @@ QACART_URL=https://your-qa-cart-environment.example
 
 Replace the example URL with the actual environment URL. `.env` is ignored by Git and should not be committed. The `.env.example` file is the shared template; `dotenv/config` loads your local `.env`, and the configuration helper requires `QACART_URL` to be set.
 
+### SauceDemo login credentials
+
+The SauceDemo E2E test reads encrypted login credentials from these `.env` variables:
+
+```env
+SAUCEDEMO_URL=https://www.saucedemo.com
+SAUCEDEMO_USER_ENCRYPTED=<encrypted username>
+SAUCEDEMO_PASSWORD_ENCRYPTED=<encrypted password>
+```
+
+In PowerShell, run these two lines in the same terminal window before encrypting credentials or running tests:
+
+```powershell
+$secureSecret = Read-Host "Enter your Cryptr secret" -AsSecureString
+$env:CRYPTR_SECRET = [System.Net.NetworkCredential]::new("", $secureSecret).Password
+```
+
+When PowerShell displays `Enter your Cryptr secret:`, type your chosen secret and press **Enter**. The characters are hidden while you type. The first line securely prompts for the secret; the second makes it available as `CRYPTR_SECRET` to commands launched from this PowerShell window. This setting lasts only for this window, so repeat these steps in a new terminal. Use exactly the same secret whenever encrypting credentials and running the tests.
+
+Then run the encryption script from the project root:
+
+```powershell
+npx --yes tsx scripts/encryptCredentials.ts
+```
+
+For example, the script prompts for each credential and prints environment-variable lines:
+
+```text
+PS E:\Github\PlaywrightFramework> npx --yes tsx scripts/encryptCredentials.ts
+SauceDemo username: <type username>
+SauceDemo password: <type password>
+SAUCEDEMO_USER_ENCRYPTED=<generated ciphertext>
+SAUCEDEMO_PASSWORD_ENCRYPTED=<generated ciphertext>
+```
+
+Copy the two generated lines into `.env`. The username and password are typed into the terminal prompts, so avoid using a terminal session that records input. Keep this PowerShell window open and run the tests from it so they have access to the same `CRYPTR_SECRET`:
+
+```powershell
+npx playwright test tests/swagE2e.spec.ts --project=chromium
+```
+
+The same secret and Base64 encoding configuration must be used to encrypt and decrypt credentials. Do not commit `.env` or share the secret. For better protection, keep the secret outside `.env` (for example, in your operating-system environment or CI secret store); storing it alongside the ciphertext means anyone who obtains the file can decrypt the credentials.
+
 Install the browser binaries used by the Playwright projects:
 
 ```bash

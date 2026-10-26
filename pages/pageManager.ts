@@ -2,6 +2,7 @@ import { Page } from "@playwright/test";
 import QaCartSignUpPage from "./qaCartSignUpPage";
 import TodoPage from "./todoPage";
 import CreateTodoPage from "./createTodoPage";
+import SauceDemoPage from './sauceDemo';
 
 export default class PageManager {
     constructor(private readonly page: Page) { }
@@ -16,5 +17,9 @@ export default class PageManager {
 
     newTodoPage() {
         return new CreateTodoPage(this.page)
+    }
+
+    sauceDemoPage(){
+        return new SauceDemoPage(this.page)
     }
 }

@@ -14,6 +14,7 @@
     "@types/node": "^26.6.5",
     "allure-commandline": "^2.34.1",
     "allure-playwright": "^3.14.0",
+    "cryptr": "^6.4.0",
     "dotenv": "^18.0.8"
   }
 }
