@@ -37,6 +37,10 @@ jobs:
       contents: write
     env:
       QACART_URL: ${{ secrets.QACART_URL }}
+      SAUCEDEMO_URL: ${{ secrets.SAUCEDEMO_URL }}
+      SAUCEDEMO_USER_ENCRYPTED: ${{ secrets.SAUCEDEMO_USER_ENCRYPTED }}
+      SAUCEDEMO_PASSWORD_ENCRYPTED: ${{ secrets.SAUCEDEMO_PASSWORD_ENCRYPTED }}
+      CRYPTR_SECRET: ${{ secrets.CRYPTR_SECRET }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
